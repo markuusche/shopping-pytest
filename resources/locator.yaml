@@ -1,0 +1,14 @@
+base:                       "https://automationexercise.com/"   
+selector:
+    login:                  "a[href='/login']"
+    container:              "#form .container"
+    email:                  "input[data-qa='login-email']"
+    pass:                   "input[data-qa='login-email']"
+    lgbtn:                  "button[data-qa='login-button']"
+
+    signup:                 
+        email:              "input[data-qa='signup-name']"
+        pass:               "input[data-qa='signup-email']"
+        sgnbtn:             "button[data-qa='signup-button']"
+
+    form:                   ".login-form"

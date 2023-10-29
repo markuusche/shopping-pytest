@@ -1,0 +1,5 @@
+pytest
+pyyaml
+selenium==4.13.00
+Selenium-Screenshot
+Faker
