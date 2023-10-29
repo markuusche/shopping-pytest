@@ -7,7 +7,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.chrome.options import Options
 from faker import Faker 
-from time import sleep as slp
+from time import sleep
+import random
 
 def data(*keys):
     with open('resources/locator.yaml', 'r') as file:

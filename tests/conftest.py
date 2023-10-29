@@ -1,12 +1,12 @@
 from src.mods import *
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def getDriver():
     options=Options()
     options.add_argument('--hide-scrollbars')
     driver = webdriver.Chrome()
-    driver.get(data()['base'])
     driver.maximize_window()
+    driver.get(data()['base'])
     yield driver
     driver.close()
     driver.quit()
