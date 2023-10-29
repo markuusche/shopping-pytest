@@ -37,4 +37,6 @@ selector:
         submit:             ".login-form button[type='submit']"
         success:            ".row .col-sm-offset-1 h2 b"
         script:             "return document.querySelector('.row .col-sm-offset-1 h2 b').textContent;"
+        continue:           ".pull-right a.btn-primary"
+        navcheck:           "return document.querySelector('.navbar-nav li:nth-child(4) a').textContent;"
 

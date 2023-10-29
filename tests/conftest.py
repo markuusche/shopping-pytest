@@ -10,6 +10,3 @@ def getDriver():
     yield driver
     driver.close()
     driver.quit()
-
-
-#print('something')

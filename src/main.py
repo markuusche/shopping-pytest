@@ -1,6 +1,7 @@
 from src.mods import *
 
 #Test cases --
+#Register's a a new user --
 def register(getDriver):
     waitElement(getDriver, 'page')
     loginTo = findElement(getDriver, 'selector','login')
@@ -14,6 +15,7 @@ def register(getDriver):
     submit.click()
     waitElement(getDriver, 'selector', 'form', 'main')
 
+#Fills-up form after registration --
 def fillUpForm(getDriver):
     elements = findElements(getDriver, 'selector', 'form', 'radio')
     dob = findElements(getDriver, 'selector', 'form', 'dob')
@@ -21,8 +23,6 @@ def fillUpForm(getDriver):
     doy = findElements(getDriver, 'selector', 'form', 'doy')
     checker = findElements(getDriver, 'selector', 'form', 'check')
     countries = findElements(getDriver, 'selector', 'form', 'countries')
-    created = findElement(getDriver, 'selector', 'form', 'success')
-
 
     if elements:
         randClick = random.choice(elements)
@@ -56,9 +56,14 @@ def fillUpForm(getDriver):
     formSelect(getDriver, 'number').send_keys(fake().phone_number())
     formSelect(getDriver, 'submit').click()
     waitElement(getDriver, 'selector', 'form', 'success')
-    text = getDriver.execute_script(data('selector', 'form', 'script'))
+
+    text = runJavascript(getDriver, 'selector', 'form', 'script')
     assert text == 'Account Created!'
+    formSelect(getDriver, 'continue').click()
     sleep(3)
+
+    checkPage = runJavascript(getDriver, 'selector', 'form', 'navcheck')
+    assert checkPage.strip() == 'Logout'
 
 #Helpers --
 def findElement(getDriver, *keys):
@@ -75,6 +80,10 @@ def formSelect(getDriver, date):
     locator = findElement(getDriver, 'selector', 'form', date)
     return locator 
 
+def runJavascript(getDriver, *keys):
+    text = getDriver.execute_script(data(*keys))
+    return text
+
 def selectDate(func):
     if func and 1 < len(func):
         getRand = random.choice(func[1:])
@@ -85,3 +94,4 @@ def waitElement(getDriver, *keys):
     wait = WebDriverWait(getDriver, 10)
     wait.until(ec.visibility_of_element_located(locator)
                ,message="\"Cannot find element\"")
+

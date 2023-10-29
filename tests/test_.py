@@ -7,4 +7,4 @@ def test_register(getDriver):
 
 def test_form(getDriver):
     fillUpForm(getDriver)
-    sleep(5)
+

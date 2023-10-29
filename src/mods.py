@@ -22,3 +22,4 @@ def data(*keys):
 def fake():
     faker = Faker()
     return faker
+
