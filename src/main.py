@@ -66,9 +66,18 @@ def fillUpForm(driver):
     checkPage = runJavascript(driver, 'selector', 'form', 'navcheck')
     assert checkPage.strip() == 'Logout' #user should be logged-in.
 
-def shopping_for_women_category(driver):
-    #dress
+def dressShopping(driver):
     selection(driver, 'women', 'dress', 'productOne', 'Women - Dress Products')
-    #tops
+
+def topsShopping(driver):
     selection(driver, 'women', 'tops', 'productTwo', 'Women - Tops Products')
-    
+
+def sareeShopping(driver):
+    selection(driver, 'women', 'saree', 'productSeven', 'Women - Saree Products')
+
+def tshirtShopping(driver):
+    selection(driver, 'men', 'tshirt', 'productThree', 'Men - Tshirts Products')
+
+def jeansShoping(driver):
+    selection(driver, 'men', 'jeans', 'productSix', 'Men - Jeans Products')
+

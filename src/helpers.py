@@ -31,12 +31,6 @@ def waitElement(driver, *keys):
     wait.until(ec.visibility_of_element_located(locator)
                 ,message="\"Cannot find element\"")
     
-def waitElementInvis(driver, *keys):
-    locator = (By.CSS_SELECTOR, data(*keys))
-    wait = WebDriverWait(driver, 10)
-    wait.until(ec.invisibility_of_element_located(locator)
-                ,message="\"Cannot find element\"")
-    
 def wait_If_Clickable(driver, *keys):
     locator = (By.CSS_SELECTOR, data(*keys))
     wait = WebDriverWait(driver, 10)
@@ -56,19 +50,22 @@ def removeAds(driver):
 
         driver.execute_script(script)
 
-def checkAdsUrl(driver, category):
-    checkCurrentURL = WebDriverWait(driver, 10).until(ec.url_to_be(data()['url']['vignette']))
-    if checkCurrentURL:
+def checkAdsUrl(driver, category, productUrl):
+    getUrl = driver.current_url
+    vignette = data()['url'][productUrl] + '#google_vignette'
+    if getUrl == data()['url']['vignette'] or getUrl == vignette:
+      wait_If_Clickable(driver, 'selector', 'category', category)
+      pageURL = WebDriverWait(driver, 10).until(ec.url_to_be(data()['url'][productUrl]))
+      if not pageURL:
         wait_If_Clickable(driver, 'selector', 'category', category)
 
-#women=genre, dress=category, productOne=productUrl, 'Women - Dress Products'=stringAssertion
 def selection(driver,
               genre: str,
               category: str,
               productUrl: str,
               stringAssertion: str):
     """
-    Just a small doc for the funtion.
+    Just a small doc for the function.
     
     :param genre: choose a category to shop eg. 'women'.
     :param category: choose what to shop for this genre eg. 'dress' etc.
@@ -80,14 +77,12 @@ def selection(driver,
     formSelect(driver, 'category', genre).click()
     findElement(driver, 'selector', 'category', 'panel')
     wait_If_Clickable(driver, 'selector', 'category', category)
-
-    #removes adds
+    checkAdsUrl(driver, category, productUrl)
     removeAds(driver)
-    #checks if current url is an ad url
-    checkAdsUrl(driver, category)
-
+    
     presenceOfEl(driver, 'selector', 'category', 'featured')
-    WebDriverWait(driver, 10).until(ec.url_matches(data()['url'][productUrl]))
+    WebDriverWait(driver, 10).until(ec.url_to_be(data()['url'][productUrl]))
+    
     text = runJavascript(driver, 'selector', 'category', 'dressPage')
     assert text == stringAssertion
 
