@@ -1,97 +1,74 @@
-from src.mods import *
+from src.modules import *
+from src.helpers import *
 
 #Test cases --
 #Register's a a new user --
-def register(getDriver):
-    waitElement(getDriver, 'page')
-    loginTo = findElement(getDriver, 'selector','login')
+def register(driver):
+    waitElement(driver, 'page')
+    loginTo = findElement(driver, 'selector','login')
     loginTo.click()
-    waitElement(getDriver, 'selector', 'container')
-    signUp = findElement(getDriver, 'selector', 'signup', 'email')
+    waitElement(driver, 'selector', 'container')
+    signUp = findElement(driver, 'selector', 'signup', 'email')
     signUp.send_keys(fake().name())
-    signUp = findElement(getDriver, 'selector', 'signup', 'pass')
+    signUp = findElement(driver, 'selector', 'signup', 'pass')
     signUp.send_keys(fake().email())
-    submit = findElement(getDriver, 'selector', 'signup', 'sgnbtn')
+    submit = findElement(driver, 'selector', 'signup', 'sgnbtn')
     submit.click()
-    waitElement(getDriver, 'selector', 'form', 'main')
+    waitElement(driver, 'selector', 'form', 'main')
 
 #Fills-up form after registration --
-def fillUpForm(getDriver):
-    elements = findElements(getDriver, 'selector', 'form', 'radio')
-    dob = findElements(getDriver, 'selector', 'form', 'dob')
-    dom = findElements(getDriver, 'selector', 'form', 'dom')
-    doy = findElements(getDriver, 'selector', 'form', 'doy')
-    checker = findElements(getDriver, 'selector', 'form', 'check')
-    countries = findElements(getDriver, 'selector', 'form', 'countries')
+def fillUpForm(driver):
+    elements = findElements(driver, 'selector', 'form', 'radio')
+    dob = findElements(driver, 'selector', 'form', 'dob')
+    dom = findElements(driver, 'selector', 'form', 'dom')
+    doy = findElements(driver, 'selector', 'form', 'doy')
+    checker = findElements(driver, 'selector', 'form', 'check')
+    countries = findElements(driver, 'selector', 'form', 'countries')
 
     if elements:
         randClick = random.choice(elements)
         randClick.click()
 
-    formSelect(getDriver, 'pass').send_keys(fake().password())
-    formSelect(getDriver, 'day').click()
+    formSelect(driver, 'form', 'pass').send_keys(fake().password())
+    formSelect(driver, 'form', 'day').click()
     selectDate(dob)
-    formSelect(getDriver, 'months').click()
+    formSelect(driver, 'form', 'months').click()
     selectDate(dom)
-    formSelect(getDriver, 'year').click()
+    formSelect(driver, 'form', 'year').click()
     selectDate(doy)
 
     for element in checker:
         element.click()
 
-    formSelect(getDriver, 'firstName').send_keys(fake().first_name())
-    formSelect(getDriver, 'lastName').send_keys(fake().last_name())
-    formSelect(getDriver, 'company').send_keys(fake().company())
-    formSelect(getDriver, 'address').send_keys(fake().address())
-    formSelect(getDriver, 'addressTwo').send_keys(fake().address())
-    formSelect(getDriver, 'country').click()
+    formSelect(driver, 'form', 'firstName').send_keys(fake().first_name())
+    formSelect(driver, 'form', 'lastName').send_keys(fake().last_name())
+    formSelect(driver, 'form', 'company').send_keys(fake().company())
+    formSelect(driver, 'form', 'address').send_keys(fake().address())
+    formSelect(driver, 'form', 'addressTwo').send_keys(fake().address())
+    formSelect(driver, 'form', 'country').click()
 
     if countries:
         select = random.choice(countries)
         select.click()
 
-    formSelect(getDriver, 'state').send_keys(fake().state())
-    formSelect(getDriver, 'city').send_keys(fake().city())
-    formSelect(getDriver, 'zip').send_keys(fake().zipcode())
-    formSelect(getDriver, 'number').send_keys(fake().phone_number())
-    formSelect(getDriver, 'submit').click()
-    waitElement(getDriver, 'selector', 'form', 'success')
+    formSelect(driver, 'form', 'state').send_keys(fake().state())
+    formSelect(driver, 'form', 'city').send_keys(fake().city())
+    formSelect(driver, 'form', 'zip').send_keys(fake().zipcode())
+    formSelect(driver, 'form', 'number').send_keys(fake().phone_number())
+    formSelect(driver, 'form', 'submit').click()
+    waitElement(driver, 'selector', 'form', 'success')
 
-    text = runJavascript(getDriver, 'selector', 'form', 'script')
+    text = runJavascript(driver, 'selector', 'form', 'script')
     assert text == 'Account Created!'
-    formSelect(getDriver, 'continue').click()
+    formSelect(driver, 'form', 'continue').click()
     sleep(3)
 
-    checkPage = runJavascript(getDriver, 'selector', 'form', 'navcheck')
-    assert checkPage.strip() == 'Logout'
+    checkPage = runJavascript(driver, 'selector', 'form', 'navcheck')
+    assert checkPage.strip() == 'Logout' #user should be logged-in.
 
-#Helpers --
-def findElement(getDriver, *keys):
-    locator = data(*keys)
-    element = getDriver.find_element(By.CSS_SELECTOR, locator)
-    return element
-
-def findElements(getDriver, *keys):
-    locator = data(*keys)
-    element = getDriver.find_elements(By.CSS_SELECTOR, locator)
-    return element
-
-def formSelect(getDriver, date):
-    locator = findElement(getDriver, 'selector', 'form', date)
-    return locator 
-
-def runJavascript(getDriver, *keys):
-    text = getDriver.execute_script(data(*keys))
-    return text
-
-def selectDate(func):
-    if func and 1 < len(func):
-        getRand = random.choice(func[1:])
-        getRand.click()
-
-def waitElement(getDriver, *keys):
-    locator = (By.CSS_SELECTOR, data(*keys))
-    wait = WebDriverWait(getDriver, 10)
-    wait.until(ec.visibility_of_element_located(locator)
-               ,message="\"Cannot find element\"")
-
+def shopping_for_women_category(driver):
+    #dress
+    selection(driver, 'women', 'dress', 'productOne', 'Women - Dress Products')
+    #tops
+    selection(driver, 'women', 'tops', 'productTwo', 'Women - Tops Products')
+    

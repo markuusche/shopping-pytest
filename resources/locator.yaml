@@ -1,4 +1,13 @@
-base:                       "https://automationexercise.com/"  
+base:                       "https://automationexercise.com/" 
+
+url:
+    productOne:             "https://automationexercise.com/category_products/1"
+    productTwo:             "https://automationexercise.com/category_products/1"
+    vignette:               "https://automationexercise.com/#google_vignette"
+
+ads:
+    firstName:              ""
+
 page:                       ".col-sm-8"
 selector:
     login:                  "a[href='/login']"
@@ -40,3 +49,17 @@ selector:
         continue:           ".pull-right a.btn-primary"
         navcheck:           "return document.querySelector('.navbar-nav li:nth-child(4) a').textContent;"
 
+    category:           
+        women:              ".panel-group div:first-child .panel-heading .pull-right i"
+        panel:              ".panel-group div:first-child #Women .panel-body"
+        dress:              ".panel-group div:first-child #Women li:first-child a"
+        tops:               ".panel-group div:first-child #Women li:nth-child(2) a"
+        saree:              ".panel-group div:first-child #Women li:last-child a"
+        dressPage:          "return document.querySelector('.title.text-center').textContent;"
+        product:            ".productinfo"
+        add:                ".product-image-wrapper .productinfo .add-to-cart"
+        featured:           ".features_items"
+
+    toaster:
+        modal:              ".modal.show .modal-content"
+        continue:           ".modal-content button"
