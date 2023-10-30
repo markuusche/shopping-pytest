@@ -55,14 +55,16 @@ def checkAdsUrl(driver, category, productUrl):
     vignette = data()['url'][productUrl] + '#google_vignette'
     if getUrl == data()['url']['vignette'] or getUrl == vignette:
       wait_If_Clickable(driver, 'selector', 'category', category)
-      pageURL = WebDriverWait(driver, 10).until(ec.url_to_be(data()['url'][productUrl]))
-      if not pageURL:
-        wait_If_Clickable(driver, 'selector', 'category', category)
+
+    pageURL = WebDriverWait(driver, 15).until(ec.url_to_be(data()['url'][productUrl]))
+    if not pageURL:
+      wait_If_Clickable(driver, 'selector', 'category', category)
 
 def selection(driver,
               genre: str,
               category: str,
               productUrl: str,
+              panel: str,
               stringAssertion: str):
     """
     Just a small doc for the function.
@@ -70,13 +72,16 @@ def selection(driver,
     :param genre: choose a category to shop eg. 'women'.
     :param category: choose what to shop for this genre eg. 'dress' etc.
     :param productUrl: get the current category url
+    :param panel: check the category submenu panel eg. '.panel-group #Women .panel-body'
     :param stringAssertion: assert and compare the text from the page
-
+ 
     """
+    runJavascript(driver, 'contentLoaded')
     removeAds(driver)
     formSelect(driver, 'category', genre).click()
-    findElement(driver, 'selector', 'category', 'panel')
+    waitElement(driver, 'selector', 'category', panel)
     wait_If_Clickable(driver, 'selector', 'category', category)
+    runJavascript(driver, 'contentLoaded')
     checkAdsUrl(driver, category, productUrl)
     removeAds(driver)
     
@@ -91,3 +96,4 @@ def selection(driver,
         i.click()
         presenceOfEl(driver, 'selector', 'toaster', 'modal')
         wait_If_Clickable(driver, 'selector', 'toaster', 'continue')
+

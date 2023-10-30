@@ -4,6 +4,7 @@ from src.helpers import *
 #Test cases --
 #Register's a a new user --
 def register(driver):
+    removeAds(driver)
     waitElement(driver, 'page')
     loginTo = findElement(driver, 'selector','login')
     loginTo.click()
@@ -18,6 +19,7 @@ def register(driver):
 
 #Fills-up form after registration --
 def fillUpForm(driver):
+    removeAds(driver)
     elements = findElements(driver, 'selector', 'form', 'radio')
     dob = findElements(driver, 'selector', 'form', 'dob')
     dom = findElements(driver, 'selector', 'form', 'dom')
@@ -61,23 +63,34 @@ def fillUpForm(driver):
     text = runJavascript(driver, 'selector', 'form', 'script')
     assert text == 'Account Created!'
     formSelect(driver, 'form', 'continue').click()
-    sleep(3)
+
+    removeAds(driver)
+    currURL = ec.url_contains('#google_vignette')
+    if currURL:
+        formSelect(driver, 'form', 'continue').click()
 
     checkPage = runJavascript(driver, 'selector', 'form', 'navcheck')
     assert checkPage.strip() == 'Logout' #user should be logged-in.
+    removeAds(driver)
 
 def dressShopping(driver):
-    selection(driver, 'women', 'dress', 'productOne', 'Women - Dress Products')
+    selection(driver, 'women', 'dress', 'productOne', 'panel', 'Women - Dress Products')
 
 def topsShopping(driver):
-    selection(driver, 'women', 'tops', 'productTwo', 'Women - Tops Products')
+    selection(driver, 'women', 'tops', 'productTwo', 'panel', 'Women - Tops Products')
 
 def sareeShopping(driver):
-    selection(driver, 'women', 'saree', 'productSeven', 'Women - Saree Products')
+    selection(driver, 'women', 'saree', 'productSeven', 'panel', 'Women - Saree Products')
 
 def tshirtShopping(driver):
-    selection(driver, 'men', 'tshirt', 'productThree', 'Men - Tshirts Products')
+    selection(driver, 'men', 'tshirt', 'productThree', 'panelm', 'Men - Tshirts Products')
 
 def jeansShoping(driver):
-    selection(driver, 'men', 'jeans', 'productSix', 'Men - Jeans Products')
+    selection(driver, 'men', 'jeans', 'productSix', 'panelm', 'Men - Jeans Products')
+
+def kidsDressShopping(driver):
+    selection(driver, 'kids', 'kidsDress', 'productFour', 'panelk', 'Kids - Dress Products')
+
+def kidsTopShirts(driver):
+    selection(driver, 'kids', 'topShirts', 'productFive', 'panelk', 'Kids - Tops & Shirts Products')
 
