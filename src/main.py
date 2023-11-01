@@ -115,7 +115,6 @@ def checkout(driver):
     findElement(driver, 'proceed', click=True)
     runJavascript(driver, 'contentLoaded')
 
-
 def payment(driver):
     expected.url_to_be(data('url', 'payment'))
     text = findElement(driver, 'payment', 'getPayment')
