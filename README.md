@@ -6,6 +6,8 @@
 - Women Category Shopping
 - Men Category Shopping
 - Kids Category Shopping
+- Cart checkout
+- Payment
 
 ### Project Dependencies
 ---------------------
