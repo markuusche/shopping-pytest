@@ -21,7 +21,7 @@
 ### Installation
 ---------------------
 **Clone repository**
-> git clone https://github.com/gloofo/Automation-Exercise
+> git clone https://github.com/gloofo/UI-Shopping-Automation
 
 **Install dependencies:**
 > pip install -r requirements.txt
