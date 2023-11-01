@@ -24,3 +24,9 @@ def test_buy_kids_dress(driver):
 
 def test_buy_kids_topShirts(driver):
     kidsTopShirts(driver)
+
+def test_checkout(driver):
+    checkout(driver)
+
+def test_payment(driver):
+    payment(driver)
