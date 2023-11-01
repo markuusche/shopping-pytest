@@ -57,9 +57,8 @@ def removeAds(driver):
         driver.execute_script(script)
 
 def checkAdsUrl(driver, category, productUrl):
-    getUrl = driver.current_url
-    vignette = data()['url'][productUrl] + '#google_vignette'
-    if getUrl == data()['url']['vignette'] or getUrl == vignette:
+    getUrl = [driver.current_url, data()['url'][productUrl] + '#google_vignette']
+    if getUrl[0] == data()['url']['vignette'] or getUrl[0] == getUrl[1]:
       wait_If_Clickable(driver, 'selector', 'category', category)
 
     pageURL = WebDriverWait(driver, 15)
