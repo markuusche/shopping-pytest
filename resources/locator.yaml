@@ -84,6 +84,7 @@ selector:
         modal:              ".modal.show .modal-content"
 
 url:
+    creation:               "https://automationexercise.com/account_created#google_vignette"
     payment:                "https://automationexercise.com/payment"
     productOne:             "https://automationexercise.com/category_products/1"
     productTwo:             "https://automationexercise.com/category_products/2"

@@ -63,9 +63,9 @@ def fillUpForm(driver):
     formSelect(driver, 'continue', click=True)
     removeAds(driver)
 
-    currURL = expected.url_contains('#google_vignette')
-    if currURL:
-       formSelect(driver, 'continue', click=True)
+    currURL = [driver.current_url, data('url', 'creation')]
+    if currURL[0] == currURL[1]:
+        formSelect(driver, 'continue', click=True)
 
     checkPage = findElement(driver, 'form', 'navcheck')
     assert checkPage.text == 'Logout' #user should be logged-in.

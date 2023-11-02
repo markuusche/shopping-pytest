@@ -20,7 +20,3 @@ def data(*keys):
         getData = getData[moreData]
 
     return getData
-
-
-
-    
